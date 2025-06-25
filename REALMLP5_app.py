@@ -189,7 +189,7 @@ if st.button("Predict Score") and username:
         
         ax.set_xlabel("Study Hours", color='white')
         ax.set_ylabel("Predicted Score", color='white')
-        ax.set_title("Study Hours vs Predicted Test Score", color='white')
+        ax.set_title(f"{username}'s Study Hours vs Predicted Test Score", color='white')
         
         ax.tick_params(colors='white')  # Make axis ticks white
         ax.grid(True, color='gray')
