@@ -123,16 +123,17 @@ if st.button("Predict Score"):
     X_range = np.linspace(0, 10, 100).reshape(-1, 1)
     y_range = retrain.predict(Real_poly.transform(X_range))
     
-    plt.style.use('dark_background')
+    with plt.style.context('dark_background'):
     plt.figure(figsize=(8, 5))
-    plt.plot(X_range, y_range, label='Regression Line', color='blue')
-    plt.scatter(hours, score, color='red', s=100, label='Your Prediction')
+    plt.plot(X_range, y_range, label='Regression Line', color='cyan')
+    plt.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
     plt.xlabel("Study Hours")
     plt.ylabel("Predicted Score")
     plt.title("Study Hours vs Predicted Test Score")
     plt.legend()
     plt.grid(True)
     st.pyplot(plt)
+
    
 df_results = pd.DataFrame({
     'study_hours': X['study_hours'],           
