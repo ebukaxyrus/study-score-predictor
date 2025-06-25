@@ -88,7 +88,7 @@ hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
 # User input
 if username:
     
-    if st.button("Predict Score") and username.strip():
+    if st.button("Predict Score"):
         # Prepare input and prediction
         X_input = np.array([[hours]])
         X_input_poly = Real_poly.transform(X_input)
