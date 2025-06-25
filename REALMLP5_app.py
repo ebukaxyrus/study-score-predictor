@@ -126,15 +126,23 @@ if st.button("Predict Score"):
 
 
     with plt.style.context('dark_background'):
-        fig, ax = plt.subplots(figsize=(8, 5))
+        
+        fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')  # Make figure background black
+        ax.set_facecolor('black')  # Make plot area background black
+        
         ax.plot(X_range, y_range, label='Regression Line', color='cyan')
         ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
-        ax.set_xlabel("Study Hours")
-        ax.set_ylabel("Predicted Score")
-        ax.set_title("Study Hours vs Predicted Test Score")
-        ax.grid(True)
+        
+        ax.set_xlabel("Study Hours", color='white')
+        ax.set_ylabel("Predicted Score", color='white')
+        ax.set_title("Study Hours vs Predicted Test Score", color='white')
+        
+        ax.tick_params(colors='white')  # Make axis ticks white
+        ax.grid(True, color='gray')
         ax.legend()
-        st.pyplot(fig)
+        
+        st.pyplot(fig)  # ✅ Use fig, not plt
+
 
 
    
