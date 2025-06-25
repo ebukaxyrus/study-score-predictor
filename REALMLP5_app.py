@@ -86,8 +86,8 @@ hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
 # poly = trained PolynomialFeatures()
 
 # User input
-
-if st.button("Predict Score"):
+username = st.text_input("Enter your name")
+if st.button("Predict Score") and username:
     # Prepare input and prediction
     X_input = np.array([[hours]])
     X_input_poly = Real_poly.transform(X_input)
@@ -204,7 +204,7 @@ if st.button("Predict Score"):
         st.download_button(
             label="📥 Download This Chart as PNG",
             data=buffer,
-            file_name="predicted_score_chart.png",
+            file_name=f"{username}_score_chart.png",
             mime="image/png"
         )
         
