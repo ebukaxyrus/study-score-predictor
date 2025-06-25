@@ -144,13 +144,6 @@ if st.button("Predict Score"):
         st.pyplot(fig)  # ✅ Use fig, not plt
         
    
-df_results = pd.DataFrame({
-    'Study Hours': X['study_hours'],           
-    'Actual Score': y,
-    'Predicted Score': polypred.astype(int)
-})
-df_results
-
 # Step 1: Prepare X_range and prediction line
 X_range = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
 y_range = retrain.predict(Real_poly.transform(X_range))
@@ -176,4 +169,10 @@ with plt.style.context('dark_background'):
     st.pyplot(fig)
 
 
+df_results = pd.DataFrame({
+    'Study Hours': X['study_hours'],           
+    'Actual Score': y,
+    'Predicted Score': polypred.astype(int)
+})
+df_results
 
