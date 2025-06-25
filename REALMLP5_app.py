@@ -151,7 +151,7 @@ if st.button("Predict Score"):
             unsafe_allow_html=True
         )
 
-    elif 0.5 <= hours <= 9.49:
+    elif 0.4 <= hours <= 9.49:
         st.markdown(
             """
             <div style='
