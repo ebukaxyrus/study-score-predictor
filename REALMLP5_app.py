@@ -80,7 +80,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<label style='color: black;'>Enter your name</label>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid #f5c6cb;
+        text-align: center;
+    '>
+        ⚠️ The predicted score is negative. Setting it to 0.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 username = st.text_input(" ", label_visibility="collapsed")
 
 hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
