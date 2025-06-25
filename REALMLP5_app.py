@@ -91,173 +91,177 @@ hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
 # poly = trained PolynomialFeatures()
 
 # User input
-if username:
+
     
-    if st.button("Predict Score"):
-        # Prepare input and prediction
+# Always show button
+if st.button("Predict Score"):
+    if not username.strip():
+        st.error("❌ Please enter your name before predicting.")
+    else:
+        # Proceed with prediction if username is valid
         X_input = np.array([[hours]])
         X_input_poly = Real_poly.transform(X_input)
         score = retrain.predict(X_input_poly)[0]
 
 
-        # Store data in CSV
-        log_entry = {
-            'Name': username,
-            'Study Hours': hours,
-            'Predicted Score': round(score, 2),
-            'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        log_df = pd.DataFrame([log_entry])
-        csv_file = "user_predictions_log.csv"
-        if os.path.exists(csv_file):
-            log_df.to_csv(csv_file, mode='a', header=False, index=False)
-        else:
-            log_df.to_csv(csv_file, mode='w', header=True, index=False)
+    # Store data in CSV
+    log_entry = {
+        'Name': username,
+        'Study Hours': hours,
+        'Predicted Score': round(score, 2),
+        'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    log_df = pd.DataFrame([log_entry])
+    csv_file = "user_predictions_log.csv"
+    if os.path.exists(csv_file):
+        log_df.to_csv(csv_file, mode='a', header=False, index=False)
+    else:
+        log_df.to_csv(csv_file, mode='w', header=True, index=False)
 
-    
-        # Display styled prediction
-        # If score is negative, show red box and set score to 0
-        if score < 0:
-            score = 0  # Set to zero after display
-            st.markdown(
-                f"""
-                <div style='
-                    background-color: #ff4d4d;
-                    color: white;
-                    padding: 12px 18px;
-                    border-radius: 8px;
-                    font-size: 18px;
-                    font-weight: bold;
-                    margin-top: 10px;
-                '>
-                    ⚠️ Predicted Test Score was negative. Set to 0.
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-            
-        else:
-            st.markdown(
-                f"""
-                <div style='
-                    background-color: black;
-                    color: white;
-                    padding: 12px 18px;
-                    border-radius: 8px;
-                    font-size: 18px;
-                    font-weight: bold;
-                    margin-top: 10px;
-                '>
-                    🎯 Predicted Test Score: {score:.2f}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
-    
-        # Custom feedback message
-            # Custom feedback message with bright backgrounds
-        if hours >= 9.50:
-            st.markdown(
-                """
-                <div style='
-                    background-color: #fff3cd;
-                    color: #856404;
-                    padding: 15px;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    border: 1px solid #ffeeba;
-                    text-align: center;
-                '>
-                    ⚠️ You’ve studied a lot — consider taking a break!
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-        elif hours <= 0.3:
-            st.markdown(
-                """
-                <div style='
-                    background-color: #90EE90;
-                    color: #60190c;
-                    padding: 15px;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    border: 1px solid #bee5eb;
-                    text-align: center;
-                '>
-                    ℹ️ A bit more study time might help improve your score!
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-        elif 0.4 <= hours <= 9.49:
-            st.markdown(
-                """
-                <div style='
-                    background-color: #d1ecf1;
-                    color: #0c5460;
-                    padding: 15px;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    border: 1px solid #bee5eb;
-                    text-align: center;
-                '>
-                    ✅ Great balance — keep it up!
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+    # Display styled prediction
+    # If score is negative, show red box and set score to 0
+    if score < 0:
+        score = 0  # Set to zero after display
+        st.markdown(
+            f"""
+            <div style='
+                background-color: #ff4d4d;
+                color: white;
+                padding: 12px 18px;
+                border-radius: 8px;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10px;
+            '>
+                ⚠️ Predicted Test Score was negative. Set to 0.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         
-       
-    
-    
-        # Plot regression line and user's point
-        X_range = np.linspace(0, 10, 100).reshape(-1, 1)
-        y_range = retrain.predict(Real_poly.transform(X_range))
-        
-    
-    
-        with plt.style.context('dark_background'):
-            
-            fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')  # Make figure background black
-            ax.set_facecolor('black')  # Make plot area background black
-            
-            ax.plot(X_range, y_range, label='Regression Line', color='cyan')
-            ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
-            
-            ax.set_xlabel("Study Hours", color='white')
-            ax.set_ylabel("Predicted Score", color='white')
-            ax.set_title(f"{username}'s Study Hours vs Predicted Test Score", color='white')
-            
-            ax.tick_params(colors='white')  # Make axis ticks white
-            ax.grid(True, color='gray')
-            ax.legend()
-            
-            st.pyplot(fig)  # ✅ Use fig, not plt
-            
-            buffer = BytesIO()
-            fig.savefig(buffer, format='png', bbox_inches='tight', facecolor=fig.get_facecolor())
-            buffer.seek(0)
-    
-            st.download_button(
-                label="📥 Download This Chart as PNG",
-                data=buffer,
-                file_name=f"{username}_score_chart.png",
-                mime="image/png"
-            )
-            
-            if os.path.exists("user_predictions_log.csv"):
-                
-                st.markdown("<h3 style='color: black;'>🗂️ Past User Predictions</h3>", unsafe_allow_html=True)
+    else:
+        st.markdown(
+            f"""
+            <div style='
+                background-color: black;
+                color: white;
+                padding: 12px 18px;
+                border-radius: 8px;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10px;
+            '>
+                🎯 Predicted Test Score: {score:.2f}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-                log_display = pd.read_csv("user_predictions_log.csv")
-                st.dataframe(log_display)
+
+    # Custom feedback message
+        # Custom feedback message with bright backgrounds
+    if hours >= 9.50:
+        st.markdown(
+            """
+            <div style='
+                background-color: #fff3cd;
+                color: #856404;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #ffeeba;
+                text-align: center;
+            '>
+                ⚠️ You’ve studied a lot — consider taking a break!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    elif hours <= 0.3:
+        st.markdown(
+            """
+            <div style='
+                background-color: #90EE90;
+                color: #60190c;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #bee5eb;
+                text-align: center;
+            '>
+                ℹ️ A bit more study time might help improve your score!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    elif 0.4 <= hours <= 9.49:
+        st.markdown(
+            """
+            <div style='
+                background-color: #d1ecf1;
+                color: #0c5460;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #bee5eb;
+                text-align: center;
+            '>
+                ✅ Great balance — keep it up!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    
+   
+
+
+    # Plot regression line and user's point
+    X_range = np.linspace(0, 10, 100).reshape(-1, 1)
+    y_range = retrain.predict(Real_poly.transform(X_range))
+    
+
+
+    with plt.style.context('dark_background'):
+        
+        fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')  # Make figure background black
+        ax.set_facecolor('black')  # Make plot area background black
+        
+        ax.plot(X_range, y_range, label='Regression Line', color='cyan')
+        ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
+        
+        ax.set_xlabel("Study Hours", color='white')
+        ax.set_ylabel("Predicted Score", color='white')
+        ax.set_title(f"{username}'s Study Hours vs Predicted Test Score", color='white')
+        
+        ax.tick_params(colors='white')  # Make axis ticks white
+        ax.grid(True, color='gray')
+        ax.legend()
+        
+        st.pyplot(fig)  # ✅ Use fig, not plt
+        
+        buffer = BytesIO()
+        fig.savefig(buffer, format='png', bbox_inches='tight', facecolor=fig.get_facecolor())
+        buffer.seek(0)
+
+        st.download_button(
+            label="📥 Download This Chart as PNG",
+            data=buffer,
+            file_name=f"{username}_score_chart.png",
+            mime="image/png"
+        )
+        
+        if os.path.exists("user_predictions_log.csv"):
+            
+            st.markdown("<h3 style='color: black;'>🗂️ Past User Predictions</h3>", unsafe_allow_html=True)
+
+            log_display = pd.read_csv("user_predictions_log.csv")
+            st.dataframe(log_display)
             
 
 
