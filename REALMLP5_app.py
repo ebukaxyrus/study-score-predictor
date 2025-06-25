@@ -100,9 +100,9 @@ if username:
 
         score = retrain.predict(X_input_poly)[0]
 
-    if score < 0:
-        st.warning("⚠️ The predicted score is negative. Setting it to 0.")
-        score = 0  # Clip the score to 0
+        if score < 0:
+            st.warning("⚠️ The predicted score is negative. Setting it to 0.")
+            score = 0  # Clip the score to 0
 
 
         # Store data in CSV
