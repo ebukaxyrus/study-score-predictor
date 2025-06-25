@@ -3,6 +3,8 @@ from io import BytesIO
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
+import os
 
 df = pd.read_csv('student_test_scores.csv')
 
@@ -93,6 +95,21 @@ if username:
         X_input = np.array([[hours]])
         X_input_poly = Real_poly.transform(X_input)
         score = retrain.predict(X_input_poly)[0]
+
+        # Store data in CSV
+        log_entry = {
+            'Name': username,
+            'Study Hours': hours,
+            'Predicted Score': round(score, 2),
+            'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        log_df = pd.DataFrame([log_entry])
+        csv_file = "user_predictions_log.csv"
+        if os.path.exists(csv_file):
+            log_df.to_csv(csv_file, mode='a', header=False, index=False)
+        else:
+            log_df.to_csv(csv_file, mode='w', header=True, index=False)
+
     
         # Display styled prediction
         st.markdown(
