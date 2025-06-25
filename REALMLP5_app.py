@@ -118,6 +118,7 @@ if username:
         # Display styled prediction
         # If score is negative, show red box and set score to 0
         if score < 0:
+            score = 0  # Set to zero after display
             st.markdown(
                 f"""
                 <div style='
@@ -134,7 +135,7 @@ if username:
                 """,
                 unsafe_allow_html=True
             )
-            score = 0  # Set to zero after display
+            
         else:
             st.markdown(
                 f"""
