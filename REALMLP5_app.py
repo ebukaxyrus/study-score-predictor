@@ -155,7 +155,7 @@ if username:
                 """
                 <div style='
                     background-color: #d1ecf1;
-                    color: #0c5460;
+                    color: #60190c;
                     padding: 15px;
                     border-radius: 8px;
                     font-size: 16px;
