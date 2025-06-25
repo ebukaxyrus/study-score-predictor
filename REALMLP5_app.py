@@ -29,8 +29,10 @@ from sklearn.metrics import r2_score, mean_absolute_error
 r2 = r2_score(y, polypred)
 mae = mean_absolute_error(y,polypred) 
 
-print("R² Score:", round(r2, 4))
-print("Mean Absolute Error (MAE):", round(mae, 2))
+st.markdown(
+    "<h1 style='color:black;'>📘 Study Hours Predictor</h1>",
+    unsafe_allow_html=True
+)
 
 st.markdown(
     "<h3 style='color:black;'>📊 Model Performance</h3>",
@@ -62,10 +64,7 @@ st.markdown(
 )
 
 
-st.markdown(
-    "<h1 style='color:black;'>📘 Study Hours Predictor</h1>",
-    unsafe_allow_html=True
-)
+
 
 
 st.markdown(
