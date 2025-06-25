@@ -113,7 +113,7 @@ if st.button("Predict Score"):
 
     # Custom feedback message
         # Custom feedback message with bright backgrounds
-    if hours >= 5.01:
+    if hours >= 9.50:
         st.markdown(
             """
             <div style='
