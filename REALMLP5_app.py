@@ -81,7 +81,7 @@ st.markdown(
 )
 
 
-
+st.markdown("<label style='color: black;'>Enter your name</label>", unsafe_allow_html=True)
 username = st.text_input(" ", label_visibility="collapsed")
 
 hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
