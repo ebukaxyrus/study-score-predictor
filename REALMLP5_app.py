@@ -122,7 +122,8 @@ if st.button("Predict Score"):
     # Plot regression line and user's point
     X_range = np.linspace(0, 10, 100).reshape(-1, 1)
     y_range = retrain.predict(Real_poly.transform(X_range))
-
+    
+    plt.style.use('dark_background')
     plt.figure(figsize=(8, 5))
     plt.plot(X_range, y_range, label='Regression Line', color='blue')
     plt.scatter(hours, score, color='red', s=100, label='Your Prediction')
