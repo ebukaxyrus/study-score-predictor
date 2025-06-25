@@ -122,7 +122,7 @@ if st.button("Predict Score"):
         # Display styled prediction
         # If score is negative, show red box and set score to 0
         if score < 0:
-            original_score = score
+           
             score = 0  # Set to zero after display
             st.markdown(
                 f"""
@@ -135,7 +135,7 @@ if st.button("Predict Score"):
                     font-weight: bold;
                     margin-top: 10px;
                 '>
-                    ⚠️ Predicted Test Score was negative ({original_score:.2f}). Set to 0.
+                    ⚠️ Predicted Test Score was negative. Set to 0.
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -262,6 +262,7 @@ if st.button("Predict Score"):
                 st.markdown("<h3 style='color: black;'>🗂️ Past User Predictions</h3>", unsafe_allow_html=True)
     
                 log_display = pd.read_csv("user_predictions_log.csv")
+                log_display['Predicted Score'] = log_display['Predicted Score'].apply(lambda x: max(0, x))
                 st.dataframe(log_display)
             
 
