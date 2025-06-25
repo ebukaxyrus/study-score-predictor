@@ -228,7 +228,8 @@ if username:
             
             if os.path.exists("user_predictions_log.csv"):
                 
-                st.markdown("### 🗂️ Past User Predictions")
+                st.markdown("<h3 style='color: black;'>🗂️ Past User Predictions</h3>", unsafe_allow_html=True)
+
                 log_display = pd.read_csv("user_predictions_log.csv")
                 st.dataframe(log_display)
             
