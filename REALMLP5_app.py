@@ -80,23 +80,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    """
-    <div style='
-        background-color: #f8d7da;
-        color: #721c24;
-        padding: 15px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        border: 1px solid #f5c6cb;
-        text-align: center;
-    '>
-        ⚠️ The predicted score is negative. Setting it to 0.
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+
 
 username = st.text_input(" ", label_visibility="collapsed")
 
@@ -115,12 +99,6 @@ if username:
         X_input_poly = Real_poly.transform(X_input)
         score = retrain.predict(X_input_poly)[0]
 
-        score = retrain.predict(X_input_poly)[0]
-
-        if score < 0:
-            st.warning("⚠️ The predicted score is negative. Setting it to 0.")
-            score = 0  # Clip the score to 0
-
 
         # Store data in CSV
         log_entry = {
@@ -138,22 +116,43 @@ if username:
 
     
         # Display styled prediction
-        st.markdown(
-            f"""
-            <div style='
-                background-color: black;
-                color: white;
-                padding: 12px 18px;
-                border-radius: 8px;
-                font-size: 18px;
-                font-weight: bold;
-                margin-top: 10px;
-            '>
-                🎯 Predicted Test Score: {score:.2f}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        # If score is negative, show red box and set score to 0
+if score < 0:
+    st.markdown(
+        f"""
+        <div style='
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        '>
+            ⚠️ Predicted Test Score was negative. Set to 0.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    score = 0  # Set to zero after display
+else:
+    st.markdown(
+        f"""
+        <div style='
+            background-color: black;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        '>
+            🎯 Predicted Test Score: {score:.2f}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
     
         # Custom feedback message
             # Custom feedback message with bright backgrounds
