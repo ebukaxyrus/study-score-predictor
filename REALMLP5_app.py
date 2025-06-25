@@ -147,7 +147,7 @@ if st.button("Predict Score"):
 
    
 df_results = pd.DataFrame({
-    'study_hours': X['study_hours'],           
+    'Study Hours': X['study_hours'],           
     'Actual Score': y,
     'Predicted Score': polypred.astype(int)
 })
