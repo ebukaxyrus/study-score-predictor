@@ -143,24 +143,24 @@ if st.button("Predict Score"):
         
         st.pyplot(fig)  # ✅ Use fig, not plt
 
-with plt.style.context('dark_background'):
-    fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')
-    ax.set_facecolor('black')
-
-    # Plot polynomial regression line
-    ax.plot(X_range, y_range, label='Polynomial Regression', color='cyan')
-
-    # Prediction point
-    ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
-
-    ax.set_xlabel("Study Hours", color='white')
-    ax.set_ylabel("Predicted Score", color='white')
-    ax.set_title("Study Hours vs Predicted Test Score", color='white')
-    ax.tick_params(colors='white')
-    ax.grid(True, color='gray')
-    ax.legend()
-
-    st.pyplot(fig)
+    with plt.style.context('dark_background'):
+        fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')
+        ax.set_facecolor('black')
+    
+        # Plot polynomial regression line
+        ax.plot(X_range, y_range, label='Polynomial Regression', color='cyan')
+    
+        # Prediction point
+        ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
+    
+        ax.set_xlabel("Study Hours", color='white')
+        ax.set_ylabel("Predicted Score", color='white')
+        ax.set_title("Study Hours vs Predicted Test Score", color='white')
+        ax.tick_params(colors='white')
+        ax.grid(True, color='gray')
+        ax.legend()
+    
+        st.pyplot(fig)
 
 
 
