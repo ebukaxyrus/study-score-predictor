@@ -30,9 +30,10 @@ r2 = r2_score(y, polypred)
 mae = mean_absolute_error(y,polypred) 
 
 st.markdown(
-    "<h1 style='color:black;'>📘 Study Hours Predictor</h1>",
+    "<h1 style='color:black;'>📘 Study Hours to Score Predictor</h1>",
     unsafe_allow_html=True
 )
+
 
 st.markdown(
     "<h3 style='color:black;'>📊 Model Performance</h3>",
