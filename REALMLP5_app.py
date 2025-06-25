@@ -78,7 +78,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
+username = st.text_input("Enter your name")
 hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
 
 # Example: Load your model and data
@@ -86,8 +86,8 @@ hours = st.number_input("Enter Study Hours", min_value=0.0, step=0.1)
 # poly = trained PolynomialFeatures()
 
 # User input
-username = st.text_input("Enter your name")
-if st.button("Predict Score") and username:
+
+if st.button("Predict Score") and username.strip():
     # Prepare input and prediction
     X_input = np.array([[hours]])
     X_input_poly = Real_poly.transform(X_input)
