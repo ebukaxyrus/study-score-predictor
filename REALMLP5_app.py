@@ -132,7 +132,7 @@ if st.button("Predict Score"):
             unsafe_allow_html=True
         )
 
-    elif hours <= 1:
+    elif hours <= 0.3:
         st.markdown(
             """
             <div style='
@@ -150,17 +150,18 @@ if st.button("Predict Score"):
             """,
             unsafe_allow_html=True
         )
-    else:
+
+    elif 9.49 <= hours >= 0.4:
         st.markdown(
             """
             <div style='
-                background-color: #d4edda;
-                color: #155724;
+                background-color: #d1ecf1;
+                color: #0c5460;
                 padding: 15px;
                 border-radius: 8px;
                 font-size: 16px;
                 font-weight: bold;
-                border: 1px solid #c3e6cb;
+                border: 1px solid #bee5eb;
                 text-align: center;
             '>
                 ✅ Great balance — keep it up!
@@ -168,6 +169,8 @@ if st.button("Predict Score"):
             """,
             unsafe_allow_html=True
         )
+    
+   
 
 
     # Plot regression line and user's point
