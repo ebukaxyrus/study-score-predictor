@@ -225,6 +225,16 @@ if username:
                 file_name=f"{username}_score_chart.png",
                 mime="image/png"
             )
+            
+            if os.path.exists("user_predictions_log.csv"):
+                
+                st.markdown("### 🗂️ Past User Predictions")
+                log_display = pd.read_csv("user_predictions_log.csv")
+                st.dataframe(log_display)
+            
+
+
+            
         
    
 # Step 1: Prepare X_range and prediction line
