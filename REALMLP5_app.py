@@ -193,6 +193,16 @@ if st.button("Predict Score"):
         ax.legend()
         
         st.pyplot(fig)  # ✅ Use fig, not plt
+         buffer = BytesIO()
+        fig.savefig(buffer, format='png', bbox_inches='tight', facecolor=fig.get_facecolor())
+        buffer.seek(0)
+
+        st.download_button(
+            label="📥 Download This Chart as PNG",
+            data=buffer,
+            file_name="predicted_score_chart.png",
+            mime="image/png"
+        )
         
    
 # Step 1: Prepare X_range and prediction line
