@@ -112,12 +112,63 @@ if st.button("Predict Score"):
     )
 
     # Custom feedback message
+        # Custom feedback message with bright backgrounds
     if hours >= 5.01:
-        st.warning("🧠 You've studied a lot — consider taking a break!")
+        st.markdown(
+            """
+            <div style='
+                background-color: #fff3cd;
+                color: #856404;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #ffeeba;
+                text-align: center;
+            '>
+                ⚠️ You’ve studied a lot — consider taking a break!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
     elif hours <= 1:
-        st.info("📚 A bit more study time might help improve your score!")
+        st.markdown(
+            """
+            <div style='
+                background-color: #d1ecf1;
+                color: #0c5460;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #bee5eb;
+                text-align: center;
+            '>
+                ℹ️ A bit more study time might help improve your score!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     else:
-        st.success("✅ Great balance — keep it up!")
+        st.markdown(
+            """
+            <div style='
+                background-color: #d4edda;
+                color: #155724;
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid #c3e6cb;
+                text-align: center;
+            '>
+                ✅ Great balance — keep it up!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
 
     # Plot regression line and user's point
     X_range = np.linspace(0, 10, 100).reshape(-1, 1)
