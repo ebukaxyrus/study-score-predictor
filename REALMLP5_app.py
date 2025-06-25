@@ -1,5 +1,5 @@
 import streamlit as st
-
+from io import BytesIO
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -193,7 +193,8 @@ if st.button("Predict Score"):
         ax.legend()
         
         st.pyplot(fig)  # ✅ Use fig, not plt
-         buffer = BytesIO()
+        
+        buffer = BytesIO()
         fig.savefig(buffer, format='png', bbox_inches='tight', facecolor=fig.get_facecolor())
         buffer.seek(0)
 
