@@ -142,29 +142,7 @@ if st.button("Predict Score"):
         ax.legend()
         
         st.pyplot(fig)  # ✅ Use fig, not plt
-
-    with plt.style.context('dark_background'):
-        fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')
-        ax.set_facecolor('black')
-    
-        # Plot polynomial regression line
-        ax.plot(X_range, y_range, label='Polynomial Regression', color='cyan')
-    
-        # Prediction point
-        ax.scatter(hours, score, color='yellow', s=100, label='Your Prediction')
-    
-        ax.set_xlabel("Study Hours", color='white')
-        ax.set_ylabel("Predicted Score", color='white')
-        ax.set_title("Study Hours vs Predicted Test Score", color='white')
-        ax.tick_params(colors='white')
-        ax.grid(True, color='gray')
-        ax.legend()
-    
-        st.pyplot(fig)
-
-
-
-
+        
    
 df_results = pd.DataFrame({
     'Study Hours': X['study_hours'],           
@@ -172,5 +150,30 @@ df_results = pd.DataFrame({
     'Predicted Score': polypred.astype(int)
 })
 df_results
+
+# Step 1: Prepare X_range and prediction line
+X_range = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
+y_range = retrain.predict(Real_poly.transform(X_range))
+
+# Step 2: Plot
+with plt.style.context('dark_background'):
+    fig, ax = plt.subplots(figsize=(8, 5), facecolor='black')
+    ax.set_facecolor('black')
+
+    # Scatter plot of actual data
+    ax.scatter(X, y, color='yellow', s=60, label='Actual Data')
+
+    # Polynomial regression line
+    ax.plot(X_range, y_range, color='cyan', linewidth=2.5, label='Polynomial Regression Line')
+
+    ax.set_xlabel("Study Hours", color='white')
+    ax.set_ylabel("Test Score", color='white')
+    ax.set_title("Polynomial Regression Fit", color='white')
+    ax.tick_params(colors='white')
+    ax.grid(True, color='gray')
+    ax.legend()
+
+    st.pyplot(fig)
+
 
 
