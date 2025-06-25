@@ -154,7 +154,7 @@ if username:
             st.markdown(
                 """
                 <div style='
-                    background-color: #f1d1ec;
+                    background-color: #90EE90;
                     color: #60190c;
                     padding: 15px;
                     border-radius: 8px;
